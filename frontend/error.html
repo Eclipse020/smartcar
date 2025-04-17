@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Failed | SmartCar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #f0f4f8;
+        background-image: linear-gradient(
+          to right,
+          rgba(37, 99, 235, 0.05) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(37, 99, 235, 0.05) 1px,
+          transparent 1px
+        );
+        background-size: 20px 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header Styles */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        background-color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        color: #2563eb;
+        font-weight: bold;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-icon {
+        margin-right: 10px;
+        font-size: 1.8rem;
+      }
+
+      .error-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        flex-grow: 1;
+      }
+
+      .error-icon {
+        font-size: 5rem;
+        color: #ef4444;
+        margin-bottom: 20px;
+        animation: shake 0.5s ease-in-out;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20%, 60% { transform: translateX(-10px); }
+        40%, 80% { transform: translateX(10px); }
+      }
+
+      .error-title {
+        font-size: 2.5rem;
+        color: #1e293b;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .error-message {
+        color: #4b5563;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .error-details {
+        background-color: #fee2e2;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 30px;
+        text-align: left;
+        border: 1px solid #fecaca;
+      }
+
+      .error-details-title {
+        font-size: 1.2rem;
+        color: #b91c1c;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      .error-code {
+        background-color: #f8fafc;
+        color: #1e293b;
+        padding: 12px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-family: monospace;
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+
+      .error-help {
+        color: #6b7280;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .possible-reasons {
+        background-color: #f8fafc;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+        text-align: left;
+        border: 1px solid #e5e7eb;
+      }
+
+      .reasons-title {
+        font-size: 1.2rem;
+        color: #2563eb;
+        margin-bottom: 15px;
+        position: relative;
+        padding-bottom: 10px;
+        border-bottom: 2px dashed #e5e7eb;
+      }
+
+      .reason-item {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: flex-start;
+      }
+
+      .reason-item i {
+        min-width: 25px;
+        color: #ef4444;
+        font-size: 1rem;
+        margin-top: 3px;
+      }
+
+      .reason-text {
+        color: #4b5563;
+        line-height: 1.5;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 14px 30px;
+        background-color: #2563eb;
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .btn::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background-color: rgba(0,0,0,0.1);
+        transition: height 0.3s ease;
+        z-index: -1;
+      }
+
+      .btn:hover::after {
+        height: 100%;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-secondary {
+        background-color: #f8fafc;
+        color: #2563eb;
+        border: 1px solid #2563eb;
+        margin-left: 15px;
+      }
+
+      .btn-secondary:hover {
+        background-color: #eef2ff;
+      }
+
+      .contact-support {
+        margin-top: 20px;
+        color: #6b7280;
+        font-size: 0.95rem;
+      }
+
+      .support-email {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .support-email:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-top: auto;
+      }
+
+      @media (max-width: 768px) {
+        .error-container {
+          padding: 30px 20px;
+          margin: 30px 20px;
+        }
+        
+        .error-title {
+          font-size: 2rem;
+        }
+        
+        .btn {
+          display: block;
+          width: 100%;
+          margin-bottom: 15px;
+        }
+        
+        .btn-secondary {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="./src/Frame.svg" />
+        <span>SMARTCAR</span>
+      </div>
+    </header>
+
+    <div class="error-container">
+      <i class="fas fa-exclamation-circle error-icon"></i>
+      <h1 class="error-title">Payment Failed</h1>
+      <p class="error-message">We were unable to process your payment. Your booking has not been confirmed.</p>
+      
+      <div class="error-details">
+        <h3 class="error-details-title">Error Details:</h3>
+        <div class="error-code" id="error-code">Error Code: PAYMENT_INTENT_AUTHENTICATION_FAILURE</div>
+        <p class="error-help">Please try again or use a different payment method.</p>
+      </div>
+      
+      <div class="possible-reasons">
+        <h2 class="reasons-title">Possible Reasons</h2>
+        <div class="reason-item">
+          <i class="fas fa-times-circle"></i>
+          <p class="reason-text"><strong>Insufficient funds:</strong> Your card doesn't have enough funds to complete this transaction.</p>
+        </div>
+        <div class="reason-item">
+          <i class="fas fa-times-circle"></i>
+          <p class="reason-text"><strong>Card declined:</strong> Your card was declined by your bank or card issuer.</p>
+        </div>
+        <div class="reason-item">
+          <i class="fas fa-times-circle"></i>
+          <p class="reason-text"><strong>Authentication failed:</strong> 3D Secure authentication failed or was canceled.</p>
+        </div>
+        <div class="reason-item">
+          <i class="fas fa-times-circle"></i>
+          <p class="reason-text"><strong>Network error:</strong> A temporary connection issue occurred during payment processing.</p>
+        </div>
+      </div>
+      
+      <a href="payment.html" class="btn">Try Again</a>
+      <a href="index.html" class="btn btn-secondary">Return Home</a>
+      
+      <p class="contact-support">
+        Need help? Contact our support team at <a href="mailto:support@smartcar.com" class="support-email">support@smartcar.com</a>
+      </p>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 SmartCar. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Get error details from URL parameters
+      function getErrorDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorCode = urlParams.get('error_code') || 'UNKNOWN_ERROR';
+        const errorMessage = urlParams.get('error_message') || 'An unknown error occurred';
+        
+        document.getElementById('error-code').innerText = `Error Code: ${errorCode}`;
+        
+        // You could add more specific error handling based on the error code
+      }
+      
+      // Load error details when page loads
+      document.addEventListener('DOMContentLoaded', getErrorDetails);
+    </script>
+  </body>
+</html>
